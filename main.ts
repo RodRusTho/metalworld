@@ -1,3 +1,4 @@
+// Start Desert Boss
 function startDesert () {
     myEnemy = sprites.create(img`
         ........fffffff.........
@@ -25,34 +26,37 @@ function startDesert () {
         .......ffffffffff.......
         ..........fffff.........
         `, SpriteKind.Enemy)
-    desertStart = true
+    desertStart2 = true
     console.log("Desert Boss | START")
     tiles.setCurrentTilemap(tilemap`level5`)
-    myPlayer.setPosition(8, 8)
-    music.playMelody("E B C5 A B G A F ", 120)
     myEnemy.follow(myPlayer, 30)
-    myEnemy.x = 14
-    myEnemy.y = 14
+    myEnemy.setPosition(180, 120)
+    myPlayer.setPosition(80, 120)
+    music.playMelody("E B C5 A B G A F ", 120)
     game.showLongText("Skullifier [BOSS]: \\n Hey! Why'd you touch my pearl?", DialogLayout.Bottom)
 }
+// Checks for overlap of player and pearl tile.
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
     startDesert()
 })
+// Button combo function
 controller.combos.attachCombo("A, B, A, B, UP, DOWN, UP", function () {
     scene.cameraShake(4, 500)
 })
+// Stop Desert Boss
+function stopDesert () {
+    game.showLongText("Skullifier has been defeated", DialogLayout.Bottom)
+}
 let myEnemy: Sprite = null
 let myPlayer: Sprite = null
+let desertStart2 = false
 let desertStart = false
-desertStart = false
-game.showLongText(`Metal World RPG 
- By INFRARED STUDIOS 
- 
- 
- 
- (C)Infrared Studios
-(C)Microsoft Corporation
-(C)DigiStream Services`, DialogLayout.Full)
+console.log("Starting")
+desertStart2 = false
+game.showLongText("Metal Roguelike              Infrared Studios", DialogLayout.Full)
+game.showLongText("(C)Infrared Studios", DialogLayout.Full)
+game.showLongText("(C)DigiStream Services", DialogLayout.Full)
+game.showLongText("(C)Microsoft Corporation", DialogLayout.Full)
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999966666699969999999999999999999999999999999999999999999999999999
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -551,7 +555,7 @@ scene.setBackgroundImage(img`
 pause(1500)
 game.showLongText("You need to save her! You are the only one who can!", DialogLayout.Bottom)
 pause(200)
-game.showLongText("Assassinate the King and put the 'Anti-Monarchist girl' in power!", DialogLayout.Bottom)
+game.showLongText("Assassinate the King and put the 'Anti Monarchist girl' in power!", DialogLayout.Bottom)
 pause(1500)
 scene.setBackgroundImage(img`
     3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
@@ -903,8 +907,9 @@ forever(function () {
     } else {
     	
     }
-    if (controller.B.isPressed() && (100 == myPlayer.vx + myPlayer.vy || (myPlayer.vx == 100 || myPlayer.y == 100))) {
-        myPlayer.sayText(":)")
+    // Dash IF THEN statement
+    if (true) {
+    	
     } else {
     	
     }

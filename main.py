@@ -1,5 +1,6 @@
+# Start Desert Boss
 def startDesert():
-    global myEnemy, desertStart
+    global myEnemy, desertStart2
     myEnemy = sprites.create(img("""
             ........fffffff.........
                     .....fff1111111fff......
@@ -27,18 +28,18 @@ def startDesert():
                     ..........fffff.........
         """),
         SpriteKind.enemy)
-    desertStart = True
+    desertStart2 = True
     print("Desert Boss | START")
     tiles.set_current_tilemap(tilemap("""
         level5
     """))
-    myPlayer.set_position(8, 8)
-    music.play_melody("E B C5 A B G A F ", 120)
     myEnemy.follow(myPlayer, 30)
-    myEnemy.x = 14
-    myEnemy.y = 14
+    myEnemy.set_position(180, 120)
+    myPlayer.set_position(80, 120)
+    music.play_melody("E B C5 A B G A F ", 120)
     game.show_long_text("Skullifier [BOSS]: \\n Hey! Why'd you touch my pearl?",
         DialogLayout.BOTTOM)
+# Checks for overlap of player and pearl tile.
 
 def on_overlap_tile(sprite, location):
     startDesert()
@@ -48,16 +49,26 @@ scene.on_overlap_tile(SpriteKind.player,
     """),
     on_overlap_tile)
 
+# Button combo function
+
 def on_combos_attach_combo():
     scene.camera_shake(4, 500)
 controller.combos.attach_combo("A, B, A, B, UP, DOWN, UP", on_combos_attach_combo)
 
+# Stop Desert Boss
+def stopDesert():
+    game.show_long_text("Skullifier has been defeated", DialogLayout.BOTTOM)
 myEnemy: Sprite = None
 myPlayer: Sprite = None
+desertStart2 = False
 desertStart = False
-desertStart = False
-game.show_long_text("Metal World RPG \n By INFRARED STUDIOS \n \n \n \n (C)Infrared Studios\n(C)Microsoft Corporation\n(C)DigiStream Services",
+print("Starting")
+desertStart2 = False
+game.show_long_text("Metal Roguelike              Infrared Studios",
     DialogLayout.FULL)
+game.show_long_text("(C)Infrared Studios", DialogLayout.FULL)
+game.show_long_text("(C)DigiStream Services", DialogLayout.FULL)
+game.show_long_text("(C)Microsoft Corporation", DialogLayout.FULL)
 scene.set_background_image(img("""
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999966666699969999999999999999999999999999999999999999999999999999
         9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -557,7 +568,7 @@ pause(1500)
 game.show_long_text("You need to save her! You are the only one who can!",
     DialogLayout.BOTTOM)
 pause(200)
-game.show_long_text("Assassinate the King and put the 'Anti-Monarchist girl' in power!",
+game.show_long_text("Assassinate the King and put the 'Anti Monarchist girl' in power!",
     DialogLayout.BOTTOM)
 pause(1500)
 scene.set_background_image(img("""
@@ -914,8 +925,9 @@ def on_forever():
         pause(200)
     else:
         pass
-    if controller.B.is_pressed() and (100 == myPlayer.vx + myPlayer.vy or (myPlayer.vx == 100 or myPlayer.y == 100)):
-        myPlayer.say_text(":)")
+    # Dash IF THEN statement
+    if True:
+        pass
     else:
         pass
 forever(on_forever)
