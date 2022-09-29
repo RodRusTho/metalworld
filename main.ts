@@ -1,4 +1,58 @@
-game.showLongText("Metal World RPG \n By INFRARED STUDIOS \n \n \n \n (C)Infrared Studios\n(C)Microsoft Corporation\n(C)DigiStream Services", DialogLayout.Full)
+function startDesert () {
+    myEnemy = sprites.create(img`
+        ........fffffff.........
+        .....fff1111111fff......
+        ....fbb1111111111bff....
+        ....fbb1111111111bff....
+        ....f1111111111111ff....
+        ..ffd1111111111111ddf...
+        ..ffd1111111111111ddf...
+        ..ffd1111111111111ddf...
+        ..ffdddd1111111dddddf...
+        ..ffdddd1111111dddddf...
+        ..ffbddbffddddfbbdbbf...
+        ..ffcddcff1111fccdccf...
+        ..ffcddcff1111fccdccf...
+        ..ffcddcff1111fccdccf...
+        ....fbb1111111111bff....
+        ..fffffcddb111bddffffff.
+        ..fffffcddb111bddffffff.
+        fc11111cbbfbbbfcc1111ccf
+        f1bb1bb1fffffff11b11b11f
+        f1bb1bb1fffffff11b11b11f
+        fbffbffffffffffbbfbbfbbf
+        .......ffffffffff.......
+        .......ffffffffff.......
+        ..........fffff.........
+        `, SpriteKind.Enemy)
+    desertStart = true
+    console.log("Desert Boss | START")
+    tiles.setCurrentTilemap(tilemap`level5`)
+    myPlayer.setPosition(8, 8)
+    music.playMelody("E B C5 A B G A F ", 120)
+    myEnemy.follow(myPlayer, 30)
+    myEnemy.x = 14
+    myEnemy.y = 14
+    game.showLongText("Skullifier [BOSS]: \\n Hey! Why'd you touch my pearl?", DialogLayout.Bottom)
+}
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
+    startDesert()
+})
+controller.combos.attachCombo("A, B, A, B, UP, DOWN, UP", function () {
+    scene.cameraShake(4, 500)
+})
+let myEnemy: Sprite = null
+let myPlayer: Sprite = null
+let desertStart = false
+desertStart = false
+game.showLongText(`Metal World RPG 
+ By INFRARED STUDIOS 
+ 
+ 
+ 
+ (C)Infrared Studios
+(C)Microsoft Corporation
+(C)DigiStream Services`, DialogLayout.Full)
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999966666699969999999999999999999999999999999999999999999999999999
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -746,7 +800,7 @@ scene.setBackgroundImage(img`
     `)
 pause(1000)
 tiles.setCurrentTilemap(tilemap`level2`)
-let myPlayer = sprites.create(img`
+myPlayer = sprites.create(img`
     . . . . c c c c c c . . . . . . 
     . . . c 6 7 7 7 7 6 c . . . . . 
     . . c 7 7 7 7 7 7 7 7 c . . . . 
@@ -764,9 +818,9 @@ let myPlayer = sprites.create(img`
     . f 6 1 1 1 1 1 1 6 6 6 f . . . 
     . . c c c c c c c c c f . . . . 
     `, SpriteKind.Player)
-controller.moveSprite(myPlayer)
 scene.cameraFollowSprite(myPlayer)
 game.showLongText("Welcome to the desert little one.. I will teach you how to play.", DialogLayout.Bottom)
+controller.moveSprite(myPlayer, 100, 100)
 forever(function () {
     if (controller.left.isPressed()) {
         myPlayer.setImage(img`
@@ -846,6 +900,11 @@ forever(function () {
             . . . c c c c c c c c c c . . . 
             `)
         pause(200)
+    } else {
+    	
+    }
+    if (controller.B.isPressed() && (100 == myPlayer.vx + myPlayer.vy || (myPlayer.vx == 100 || myPlayer.y == 100))) {
+        myPlayer.sayText(":)")
     } else {
     	
     }
